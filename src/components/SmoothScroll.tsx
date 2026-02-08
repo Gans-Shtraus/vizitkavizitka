@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, RefObject } from "react";
+import { useEffect } from "react";
 
 type SmoothScrollProps = {
   href: string;
@@ -13,41 +13,31 @@ export default function SmoothScroll({
   children,
   className,
 }: SmoothScrollProps) {
-  // Используем ref для прямой ссылки на элемент
-  const linkRef = useRef<HTMLAnchorElement>(null);
+  // Выносим обработчик в тело компонента
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
 
-  useEffect(() => {
-    const handleClick = (e: Event) => {
-      e.preventDefault();
+    // Проверяем, что href — локальный якорь
+    if (!href.startsWith("#")) return;
 
-      // Приводим тип события к MouseEvent, если нужны его свойства
-      const mouseEvent = e as MouseEvent;
-
-      const target = document.querySelector(href);
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth" });
-      }
-    };
-
-    const link = linkRef.current;
-    if (link) {
-      link.addEventListener("click", handleClick);
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    } else {
+      console.warn(`Элемент с селектором "${href}" не найден`);
     }
+  };
 
-    return () => {
-      if (link) {
-        link.removeEventListener("click", handleClick);
-      }
-    };
+  // useEffect оставляем только для отслеживания изменений href
+  useEffect(() => {
+    // Здесь можно добавить логику, если нужно реагировать на изменение href
   }, [href]);
 
   return (
     <a
-      ref={linkRef}
       href={href}
       className={className}
-      // Дополнительно: предотвращаем стандартное поведение через prop
-      onClick={(e) => e.preventDefault()}
+      onClick={handleClick} // Теперь handleClick доступен
     >
       {children}
     </a>

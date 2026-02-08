@@ -15,26 +15,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Моё портфолио | Веб‑разработчик",
-  description:
-    "Создаю сайты, лендинги и веб‑решения с неоновым дизайном и плавными анимациями.",
-  applicationName: "MyPortfolio",
-  keywords: [
-    "веб‑разработка",
-    "Next.js",
-    "React",
-    "лендинги",
-    "сайты под ключ",
-  ],
+  metadataBase: new URL("https://ваш-домен.com"), // замените на ваш реальный URL
+  title: "Моё портфолио",
+  description: "Описание вашего проекта",
   openGraph: {
     title: "Моё портфолио",
-    description: "Портфолио веб‑разработчика: проекты, услуги, контакты.",
-    images: "/images/og-image.jpg", // Укажите путь к превью
+    description: "Описание вашего проекта",
+    images: "/images/og-image.png", // путь к превью для соцсетей
   },
   twitter: {
     card: "summary_large_image",
     title: "Моё портфолио",
-    description: "Портфолио веб‑разработчика: проекты, услуги, контакты.",
+    description: "Описание вашего проекта",
+    images: "/images/twitter-image.png",
   },
 };
 
