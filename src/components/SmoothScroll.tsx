@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, RefObject } from "react";
 
 type SmoothScrollProps = {
   href: string;
@@ -13,27 +13,42 @@ export default function SmoothScroll({
   children,
   className,
 }: SmoothScrollProps) {
+  // Используем ref для прямой ссылки на элемент
+  const linkRef = useRef<HTMLAnchorElement>(null);
+
   useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
+    const handleClick = (e: Event) => {
       e.preventDefault();
+
+      // Приводим тип события к MouseEvent, если нужны его свойства
+      const mouseEvent = e as MouseEvent;
+
       const target = document.querySelector(href);
       if (target) {
         target.scrollIntoView({ behavior: "smooth" });
       }
     };
 
-    const link = document.querySelector(`a[href="${href}"]`);
+    const link = linkRef.current;
     if (link) {
       link.addEventListener("click", handleClick);
     }
 
     return () => {
-      if (link) link.removeEventListener("click", handleClick);
+      if (link) {
+        link.removeEventListener("click", handleClick);
+      }
     };
   }, [href]);
 
   return (
-    <a href={href} className={className}>
+    <a
+      ref={linkRef}
+      href={href}
+      className={className}
+      // Дополнительно: предотвращаем стандартное поведение через prop
+      onClick={(e) => e.preventDefault()}
+    >
       {children}
     </a>
   );
