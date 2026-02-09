@@ -20,7 +20,7 @@ export default function Header() {
     <header className="fixed w-full bg-black/40 backdrop-blur-md z-100 border-b border-white/10">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="text-2xl font-bold neon-text">
-          MyPortfolio
+          Web Solution
         </Link>
 
         {/* Десктоп-меню */}

@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ваш-домен.com"), // замените на ваш реальный URL
+  metadataBase: new URL("https://vizitkavizitka1.vercel.app/"), // замените на ваш реальный URL
   title: "Моё портфолио",
   description: "Описание вашего проекта",
   openGraph: {

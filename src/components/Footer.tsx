@@ -1,10 +1,10 @@
 export default function Footer() {
   return (
-    <footer className="bg-black/60 border-t border-white/10 py-12 mt-20">
+    <footer id="contacts" className="bg-black/60 border-t border-white/10 py-12 mt-20">
       <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
         <div className="mb-6 md:mb-0">
           <p className="text-gray-400">
-            © 2026 MyPortfolio. Все права защищены.
+            © 2026 Web Solution. Все права защищены.
           </p>
         </div>
 

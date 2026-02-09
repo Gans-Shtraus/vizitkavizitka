@@ -14,7 +14,7 @@ export default function Home() {
 
       <div className="relative z-10">
         <section className="pt-32 pb-20 text-center px-6">
-          <h1 className="text-6xl font-bold mb-6 neon-text">
+          <h1 className="text-4xl font-bold mb-6 neon-text">
             Привет! Я — веб-разработчик
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
@@ -29,8 +29,8 @@ export default function Home() {
           </SmoothScroll>
         </section>
 
-        <section id="services" className="py-20 px-6">
-          <h2 className="text-4xl font-bold text-center mb-12 neon-text">
+        <section id="services" className="py-30 px-6">
+          <h2 className="text-3xl font-bold text-center mb-12 neon-text">
             Что я делаю
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
