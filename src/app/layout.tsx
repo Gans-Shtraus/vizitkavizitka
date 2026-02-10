@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://vizitkavizitka1.vercel.app/"), // замените на ваш реальный URL
-  title: "Web Solution",
+  title: "NeWeb Solution",
   description: "Разработка сайтов под ключ. SEO оптимизация. Web решения",
 
   // Основные теги для всех платформ
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/Ne web.png", // путь к основному изображению
+        url: "/images/NeWeb.png", // путь к основному изображению
         width: 1200, // рекомендуемая ширина для превью
         height: 630, // рекомендуемая высота для превью
         alt: "Будущее уже здесь", // альтернативный текст для картинки
