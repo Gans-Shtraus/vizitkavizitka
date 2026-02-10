@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   title: "Web Solution",
   description: "Разработка сайтов под ключ. SEO оптимизация. Web решения",
   openGraph: {
-    title: "Моё портфолио",
-    description: "Описание вашего проекта",
+    title: "Web Solution",
+    description: "Будущее уже здесь",
     images: "/images/og-image.png", // путь к превью для соцсетей
   },
   twitter: {
