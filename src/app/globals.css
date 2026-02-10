@@ -1,19 +1,23 @@
 @import "tailwindcss";
+
 html {
   scroll-behavior: smooth;
 }
+
 :root {
-  --background: #0f0f15;
-  --foreground: #e0e0e6;
-  --accent: #6e46f0;
-  --neon-blue: #00f0ff;
-  --neon-pink: #ff00a8;
+  --background: #0f172a; /* Тёмно-синий вместо чёрного */
+  --foreground: #e2e8f0; /* Светло-серый вместо белого */
+  --accent: #3b82f6;   /* Яркий синий (основной акцент) */
+  --accent-light: #60a5fa; /* Светлый синий для наведения */
+  --white: #ffffff;
+  --gray-200: #e5e7eb;
+  --gray-700: #374151;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0f172a;
+    --foreground: #f8fafc;
   }
 }
 
@@ -22,45 +26,49 @@ body {
   color: var(--foreground);
   font-family: "Inter", sans-serif;
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
-/* Неоновые эффекты */
+/* Убираем неоновые тени и анимацию, заменяем на сдержанные стили */
 .neon-text {
-  text-shadow:
-    0 0 5px var(--neon-blue),
-    0 0 10px var(--neon-blue),
-    0 0 20px var(--neon-blue);
-  animation: flicker 1.5s infinite alternate;
+  color: var(--white);
+  font-weight: 700;
+  /* Без text-shadow и анимации */
 }
 
 .neon-border {
-  border: 2px solid var(--neon-pink);
-  box-shadow:
-    0 0 10px var(--neon-pink),
-    0 0 20px var(--neon-pink);
+  border: 1px solid var(--accent-light);
+  box-shadow: none;
+  border-radius: 8px;
 }
 
-@keyframes flicker {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.8;
-  }
-}
-
-/* Плавные переходы */
+/* Плавные переходы (сохраняем) */
 * {
   transition: all 0.3s ease;
 }
+
+/* Кнопки — синий акцент */
+.btn-primary {
+  background-color: var(--accent);
+  color: var(--white);
+  padding: 12px 24px;
+  border-radius: 28px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-packed);
+}
+
 /* Мобильные устройства (до 768px) */
 @media (max-width: 768px) {
   body {
     font-size: 14px;
   }
 
-  /* Скрываем основное меню, показываем бургер */
   .main-nav {
     display: none;
   }
@@ -74,7 +82,6 @@ body {
     cursor: pointer;
   }
 
-  /* Полноэкранное мобильное меню */
   .mobile-menu {
     position: fixed;
     top: 0;
@@ -104,10 +111,9 @@ body {
   }
 
   .mobile-menu a:hover {
-    color: var(--neon-pink);
+    color: var(--accent);
   }
 
-  /* Кнопка закрытия */
   .close-btn {
     position: absolute;
     top: 20px;
