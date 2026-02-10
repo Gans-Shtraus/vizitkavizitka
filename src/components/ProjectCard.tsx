@@ -28,6 +28,7 @@ export default function ProjectCard({
           alt={title}
           width={800} // Укажите реальную ширину изображения
           height={600} // Укажите реальную высоту изображения
+          priority
           className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-4">

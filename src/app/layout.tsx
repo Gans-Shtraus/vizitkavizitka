@@ -18,16 +18,36 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://vizitkavizitka1.vercel.app/"), // замените на ваш реальный URL
   title: "Web Solution",
   description: "Разработка сайтов под ключ. SEO оптимизация. Web решения",
+
+  // Основные теги для всех платформ
+  applicationName: "Web Solution", // имя приложения/сайта
+  keywords: ["веб‑разработка", "создание сайтов", "SEO", "веб‑решения"], // ключевые слова
+
   openGraph: {
-    title: "Web Solution",
-    description: "Будущее уже здесь",
-    images: "/images/og-image.png", // путь к превью для соцсетей
+    title: "Web Solution — Разработка сайтов под ключ",
+    description:
+      "Создаём современные сайты и оптимизируем их для поисковых систем. Полный цикл: от идеи до запуска.",
+    url: "https://vizitkavizitka1.vercel.app/", // полный URL главной страницы
+    siteName: "Web Solution",
+    locale: "ru_RU",
+    type: "website",
+    images: [
+      {
+        url: "/images/Ne web.png", // путь к основному изображению
+        width: 1200, // рекомендуемая ширина для превью
+        height: 630, // рекомендуемая высота для превью
+        alt: "Будущее уже здесь", // альтернативный текст для картинки
+      },
+    ],
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "Моё портфолио",
-    description: "Описание вашего проекта",
-    images: "/images/twitter-image.png",
+    title: "Web Solution — Моё портфолио",
+    description: "Примеры моих работ по разработке сайтов и SEO‑оптимизации.",
+    site: "@your_twitter_handle", // ваш Twitter‑аккаунт (если есть)
+    creator: "@your_twitter_creator", // аккаунт автора (если отличается)
+    images: ["/images/twitter-image.png"], // путь к изображению для Twitter
   },
 };
 

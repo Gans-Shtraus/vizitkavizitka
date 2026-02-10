@@ -12,9 +12,9 @@ export default function Header() {
 
   const navLinks = [
     { href: "/", label: "Главная" },
-    { href: "/about", label: "О себе" },
+    { href: "/about", label: "О компании" },
     { href: "/services", label: "Услуги" },
-    { href: "/portfolio", label: "Портфолио" },
+    { href: "/portfolio", label: "Наши клиенты" },
     { href: "/contacts", label: "Контакты" },
   ];
 
@@ -50,7 +50,7 @@ export default function Header() {
     <header className="fixed w-full bg-black/40 backdrop-blur-md z-50 border-b border-white/10">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="text-2xl font-bold text-white">
-          Web Solution
+          NeWeb
         </Link>
 
         {/* Десктоп-меню */}
@@ -61,9 +61,11 @@ export default function Header() {
               href={link.href}
               className={`
                 text-sm uppercase tracking-wider
-                ${pathname === link.href
-                  ? "text-white"
-                  : "text-gray-400 hover:text-white"}
+                ${
+                  pathname === link.href
+                    ? "text-white"
+                    : "text-gray-400 hover:text-white"
+                }
               `}
             >
               {link.label}
@@ -113,7 +115,7 @@ export default function Header() {
             className={`
               bg-gray-900
               flex-grow flex flex-col items-center justify-center
-              space-y-8 text-3xl font-medium
+              space-y-8 text-2xl font-medium
               transition-transform duration-500 ease-in-out
               ${isMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"}
             `}

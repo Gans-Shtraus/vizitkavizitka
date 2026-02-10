@@ -5,17 +5,16 @@ import ServiceCard from "@/components/ServiceCard";
 import ProjectCard from "@/components/ProjectCard";
 import { PROJECTS } from "@/lib/data";
 import SmoothScroll from "@/components/SmoothScroll";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 export default function Home() {
   const [displayedText, setDisplayedText] = useState("");
 
   // Массив фраз для поочерёдного отображения
-  const phrases = [
-    "Web‑решения",
-    "SEO‑продвижение",
-    "Решения для бизнеса",
-  ];
+  const phrases = useMemo(
+    () => ["Web‑решения", "SEO‑продвижение", "Решения для бизнеса"],
+    [],
+  ); // пустой массив зависимостей — создаётся один раз
 
   // Индекс текущей фразы
   const [phraseIndex, setPhraseIndex] = useState(0);
@@ -37,16 +36,17 @@ export default function Home() {
         setDisplayedText(currentPhrase.slice(0, charIndex - 1));
         setCharIndex(charIndex - 1);
       } else if (charIndex === currentPhrase.length && !isDeleting) {
-        // Закончили набор — ждём 1.5 с, затем начинаем удаление
-        setIsDeleting(true);
-        setTimeout(() => setIsDeleting(false), 1500);
+        // Закончили набор — ждём 1500 мс, затем начинаем удаление
+        setTimeout(() => setIsDeleting(true), 1500);
       } else if (charIndex === 0 && isDeleting) {
-        // Закончили удаление — переходим к следующей фразе
-        setPhraseIndex((phraseIndex + 1) % phrases.length);
-        setIsDeleting(false);
+        // Закончили удаление — ждём 500 мс перед переходом к следующей фразе
+        setTimeout(() => {
+          setPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length);
+          setIsDeleting(false);
+          setCharIndex(0); // сбрасываем позицию курсора
+        }, 500);
       }
-    }, 55); // Скорость набора/удаления (мс на символ)
-
+    }, 25); // Скорость набора/удаления (мс на символ)
 
     return () => clearTimeout(timeout);
   }, [charIndex, isDeleting, phraseIndex, phrases]);
@@ -59,7 +59,7 @@ export default function Home() {
       <div className="relative z-10">
         <section className="pt-32 pb-20 text-center px-6">
           <h1 className="text-4xl font-bold mb-6 text-white">
-            Веб‑разработчик с 5‑летним опытом
+            Цифровые решения для масштабирования бизнеса
           </h1>
 
           {/* Поисковая строка с бегущим текстом */}
@@ -80,22 +80,22 @@ export default function Home() {
           </div>
 
           <p className="text-xl text-gray-300 max-w-2xl mx-auto mt-6">
-            Создаю функциональные и производительные веб‑решения для бизнеса:
-            сайты, лендинги и веб‑приложения. Помогаю закрывать задачи —
-            от привлечения клиентов до автоматизации процессов.
+            Создаем функциональные и производительные веб‑решения для бизнеса:
+            сайты, лендинги и веб‑приложения. Помогаю закрывать задачи — от
+            привлечения клиентов до автоматизации процессов.
           </p>
 
           <SmoothScroll
             href="#services"
             className="mt-10 inline-block px-8 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors btn-primary"
           >
-            Мои услуги
+            Наши услуги
           </SmoothScroll>
         </section>
 
         <section id="services" className="py-30 px-6">
           <h2 className="text-3xl font-bold text-center mb-12 text-white">
-            Что я делаю
+            Чем занимается компания
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {SERVICES.map((service, index) => (
@@ -111,7 +111,7 @@ export default function Home() {
 
         <section id="portfolio" className="py-20 px-6 bg-gray-800/30">
           <h2 className="text-4xl font-bold text-center mb-12 text-white">
-            Портфолио
+            Наши продукты
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {PROJECTS.map((project, index) => (
