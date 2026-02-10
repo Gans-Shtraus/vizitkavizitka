@@ -16,7 +16,7 @@ export default function Header() {
     { href: "/portfolio", label: "Портфолио" },
     { href: "/contacts", label: "Контакты" },
   ];
-
+//help
   // Блокировка скролла и управление фокусом
   useEffect(() => {
     if (isMenuOpen) {
