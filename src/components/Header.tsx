@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, RefObject } from "react";
 
 export default function Header() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef(null); // Для управления фокусом
+  // Явно указываем тип ref как HTMLDivElement | null
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const navLinks = [
     { href: "/", label: "Главная" },
@@ -16,13 +17,16 @@ export default function Header() {
     { href: "/portfolio", label: "Портфолио" },
     { href: "/contacts", label: "Контакты" },
   ];
-//help
+
   // Блокировка скролла и управление фокусом
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
       document.body.setAttribute("aria-hidden", "true");
-      menuRef.current?.focus(); // Фокусируем меню
+      // Проверяем существование элемента перед фокусом
+      if (menuRef.current) {
+        menuRef.current.focus();
+      }
     } else {
       document.body.style.overflow = "auto";
       document.body.removeAttribute("aria-hidden");
@@ -30,13 +34,13 @@ export default function Header() {
   }, [isMenuOpen]);
 
   // Закрытие меню при клике вне зоны или нажатии Esc
-  const handleOverlayClick = (e) => {
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setIsMenuOpen(false);
     }
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Escape") {
       setIsMenuOpen(false);
     }
@@ -90,7 +94,7 @@ export default function Header() {
           onKeyDown={handleKeyPress}
           aria-modal="true"
           role="dialog"
-          tabIndex={-1}
+          tabIndex={0} // Исправлено: tabIndex=0 для возможности фокуса
           ref={menuRef}
         >
           {/* Кнопка закрытия */}
