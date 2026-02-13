@@ -1,47 +1,46 @@
 'use client';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, extend, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { useRef, useState, useEffect } from 'react';
+import * as THREE from 'three';
+import type { Group } from 'three';
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      mesh: any;
-      cylinderGeometry: any;
-      ringGeometry: any;
-      coneGeometry: any;
-      meshStandardMaterial: any;
-      ambientLight: any;
-      pointLight: any;
-      directionalLight: any;
-    }
-  }
-}
+// Расширяем JSX типы правильно
+extend({
+  CylinderGeometry: THREE.CylinderGeometry,
+  RingGeometry: THREE.RingGeometry,
+  ConeGeometry: THREE.ConeGeometry,
+  MeshStandardMaterial: THREE.MeshStandardMaterial,
+});
 
 function CompassArrow({ randomRotation }: { randomRotation: number }) {
-  const ref = useRef<any>(null);
+  const groupRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
 
   useFrame((state) => {
-    if (ref.current) {
-      ref.current.rotation.y = randomRotation;
+    if (groupRef.current) {
+      groupRef.current.rotation.y = randomRotation;
       
       if (hovered) {
-        ref.current.rotation.x = Math.sin(state.clock.elapsedTime * 4) * 0.1;
-        ref.current.rotation.z = Math.sin(state.clock.elapsedTime * 3) * 0.15;
-        ref.current.position.y = 0.1;
-        ref.current.scale.setScalar(1.15);
+        groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 4) * 0.1;
+        groupRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 3) * 0.15;
+        groupRef.current.position.y = 0.1;
+        groupRef.current.scale.setScalar(1.15);
       } else {
-        ref.current.rotation.x = 0;
-        ref.current.rotation.z = 0;
-        ref.current.position.y = 0;
-        ref.current.scale.setScalar(1);
+        groupRef.current.rotation.x = 0;
+        groupRef.current.rotation.z = 0;
+        groupRef.current.position.y = 0;
+        groupRef.current.scale.setScalar(1);
       }
     }
   });
 
   return (
-    <group ref={ref} onPointerEnter={() => setHovered(true)} onPointerLeave={() => setHovered(false)}>
+    <group 
+      ref={groupRef} 
+      onPointerEnter={() => setHovered(true)} 
+      onPointerLeave={() => setHovered(false)}
+    >
       <mesh rotation={[-Math.PI * 0.5, 0, 0]}>
         <cylinderGeometry args={[0.025, 0.025, 2.2]} />
         <meshStandardMaterial 
@@ -80,13 +79,15 @@ function CompassRing() {
 }
 
 function CompassMarkings() {
-  const marks = [];
+  const marks: React.ReactNode[] = [];
+  
   for (let i = 0; i < 36; i++) {
     const angle = (i / 36) * Math.PI * 2;
     const isMajor = i % 9 === 0;
     const size = isMajor ? 0.18 : 0.08;
+    
     marks.push(
-      <mesh key={i} position={[Math.cos(angle) * 1.25, 0.03, Math.sin(angle) * 1.25]}>
+      <mesh key={`mark-${i}`} position={[Math.cos(angle) * 1.25, 0.03, Math.sin(angle) * 1.25]}>
         <cylinderGeometry args={[0.015, 0.015, size]} />
         <meshStandardMaterial 
           color={isMajor ? "#ffffff" : "#aaaaff"} 
@@ -96,14 +97,15 @@ function CompassMarkings() {
       </mesh>
     );
   }
+  
   return <>{marks}</>;
 }
 
 function CompassBase() {
   return (
     <group position={[0, -0.8, 0]}>
-      {/* ✅ ОСНОВАНИЕ - ЛЕЖИТ ПЛОСКО на столе */}
-      <mesh rotation={[0, 0, 0]}>
+      {/* Основание */}
+      <mesh>
         <cylinderGeometry args={[1.6, 1.6, 0.25]} />
         <meshStandardMaterial 
           color="#111133" 
@@ -114,8 +116,8 @@ function CompassBase() {
         />
       </mesh>
       
-      {/* ✅ Стекло - ПЛОСКОЕ сверху основания */}
-      <mesh rotation={[0, 0, 0]} position={[0, 0.14, 0]}>
+      {/* Стекло */}
+      <mesh position={[0, 0.14, 0]}>
         <cylinderGeometry args={[1.45, 1.45, 0.12]} />
         <meshStandardMaterial 
           color="#444488" 
@@ -129,11 +131,9 @@ function CompassBase() {
   );
 }
 
-
 export default function Compass() {
   const [randomRotation, setRandomRotation] = useState(0);
 
-  // ✅ ПРАВИЛЬНО: Рандомное вращение через useEffect
   useEffect(() => {
     const interval = setInterval(() => {
       setRandomRotation(Math.random() * Math.PI * 2);
@@ -143,13 +143,15 @@ export default function Compass() {
   }, []);
 
   return (
-    <div className="w-full max-w-lg h-72 sm:h-80 md:h-96 lg:h-[28rem] mx-auto p-6 rounded-3xl bg-black/30 backdrop-blur-md border-2 border-white/20 shadow-2xl">
+    <div className="w-full h-full rounded-2xl cursor-grab active:cursor-grabbing select-none">
       <Canvas 
         camera={{ position: [0, 0, 4], fov: 35 }}
-        gl={{ antialias: true, powerPreference: "high-performance" }}
-        className="w-full h-full rounded-2xl cursor-grab active:cursor-grabbing"
-        onPointerDown={(e) => e.currentTarget.style.cursor = 'grabbing'}
-        onPointerUp={(e) => e.currentTarget.style.cursor = 'grab'}
+        gl={{ 
+          antialias: true, 
+          powerPreference: "high-performance",
+          alpha: false 
+        }}
+        className="w-full h-full rounded-2xl"
       >
         <ambientLight intensity={0.8} />
         <directionalLight position={[2, 2, 2]} intensity={2} />
