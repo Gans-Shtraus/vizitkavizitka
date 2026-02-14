@@ -3,7 +3,7 @@
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useState } from "react";
-
+import Image from "next/image";
 // Данные проектов (замените URL на свои изображения)
 const projects = [
   {
@@ -11,7 +11,7 @@ const projects = [
     title: "Проект «Студия красоты»",
     images: [
       "/images/project1/1.png",
-    //   "/images/project1/2.png",
+      //   "/images/project1/2.png",
       "/images/project1/3.png",
     ],
   },
@@ -80,30 +80,34 @@ export default function ClientsGallery() {
             centerSlidePercentage={80}
             className="max-w-4xl mx-auto"
           >
-           {projects[selectedProject].images.map((img, index) => (
-  <div
-    key={index}
-    className={`cursor-zoom-in ${isZoomed ? "scale-150" : ""}`}
-    onClick={() => setIsZoomed(true)}
-    onDoubleClick={() => setIsZoomed(false)}
-  >
-    <img
-      src={img}
-      alt={`Проект ${selectedProject + 1}, фото ${index + 1}`}
-      className="
-        w-full
-        h-100
-        object-cover
-        rounded-xl
-        shadow-2xl
-        shadow-blue-500/20
-        transition-transform
-        duration-300
-      "
-    />
-  </div>
-))}
-
+            {projects[selectedProject].images.map((img, index) => (
+              <div
+                key={index}
+                className={`cursor-zoom-in ${isZoomed ? "scale-150" : ""}`}
+                onClick={() => setIsZoomed(true)}
+                onDoubleClick={() => setIsZoomed(false)}
+              >
+                <Image
+                  src={img}
+                  alt={`Проект ${selectedProject + 1}, фото ${index + 1}`}
+                  className="
+    w-full
+    h-100
+    object-cover
+    rounded-xl
+    shadow-2xl
+    shadow-blue-500/20
+    transition-transform
+    duration-300
+  "
+                  width={1200} // укажите реальную ширину изображения
+                  height={800} // укажите реальную высоту изображения
+                  loading="lazy" // ленивая загрузка для некритических изображений
+                  placeholder="blur" // опционально: размытый прелоадер для улучшения UX
+                  blurDataURL="/images/placeholder.jpg" // опционально: путь к маленькому размытому превью
+                />
+              </div>
+            ))}
           </Carousel>
 
           {/* Кнопка сброса зума */}
@@ -119,7 +123,8 @@ export default function ClientsGallery() {
         </div>
 
         <p className="text-center text-gray-400 mt-6 text-sm">
-          Пролистайте вправо/влево для просмотра всех фотографий проекта. Двойной клик — увеличить.
+          Пролистайте вправо/влево для просмотра всех фотографий проекта.
+          Двойной клик — увеличить.
         </p>
       </div>
     </div>

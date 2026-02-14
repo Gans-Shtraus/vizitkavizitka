@@ -15,39 +15,55 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://vizitkavizitka1.vercel.app/"), // замените на ваш реальный URL
-  title: "NeWeb Solution",
-  description: "Разработка сайтов под ключ. SEO оптимизация. Web решения",
-
-  // Основные теги для всех платформ
-  applicationName: "Web Solution", // имя приложения/сайта
-  keywords: ["веб‑разработка", "создание сайтов", "SEO", "веб‑решения"], // ключевые слова
+  metadataBase: new URL("https://vizitkavizitka1.vercel.app/"),
+  title: {
+    default: "NeWeb — разработка сайтов и SEO‑оптимизация под ключ",
+    template: "%s | NeWeb",
+  },
+  description:
+    "Создаём современные сайты и лендинги с SEO‑оптимизацией. Полный цикл: от идеи до запуска и продвижения. Интеграции и IT‑решения для бизнеса.",
+  keywords: [
+    "веб‑разработка",
+    "создание сайтов",
+    "SEO",
+    "лендинги под заказ",
+    "NeWeb",
+    "невеб",
+    "сео оптимизация",
+    "интеграции",
+    "IT решения для бизнеса",
+    "разработка веб‑сайтов",
+  ],
+  authors: [{ name: "NeWeb Company" }],
+  creator: "NeWeb",
 
   openGraph: {
-    title: "Web Solution — Разработка сайтов под ключ",
+    title: "NeWeb — профессиональная веб‑разработка и SEO",
     description:
-      "Создаём современные сайты и оптимизируем их для поисковых систем. Полный цикл: от идеи до запуска.",
-    url: "https://vizitkavizitka1.vercel.app/", // полный URL главной страницы
-    siteName: "Web Solution",
+      "Создание сайтов, лендингов и веб‑приложений с SEO‑оптимизацией. IT‑решения для роста вашего бизнеса.",
+    url: "https://vizitkavizitka1.vercel.app/",
+    siteName: "NeWeb",
     locale: "ru_RU",
     type: "website",
     images: [
       {
-        url: "/images/NeWeb.png", // путь к основному изображению
-        width: 1200, // рекомендуемая ширина для превью
-        height: 630, // рекомендуемая высота для превью
-        alt: "Будущее уже здесь", // альтернативный текст для картинки
+        url: "/images/NeWeb-og.png",
+        width: 1200,
+        height: 630,
+        alt: "NeWeb — веб‑разработка и SEO под ключ",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Web Solution — Моё портфолио",
-    description: "Примеры моих работ по разработке сайтов и SEO‑оптимизации.",
-    site: "@your_twitter_handle", // ваш Twitter‑аккаунт (если есть)
-    creator: "@your_twitter_creator", // аккаунт автора (если отличается)
-    images: ["/images/twitter-image.png"], // путь к изображению для Twitter
+    title: "NeWeb — создание сайтов с SEO",
+    description: "Профессиональные веб‑решения для вашего бизнеса",
+    images: ["/images/NeWeb-twitter.png"],
+  },
+
+  alternates: {
+    canonical: "https://vizitkavizitka1.vercel.app/",
   },
 };
 

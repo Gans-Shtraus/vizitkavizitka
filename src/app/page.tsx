@@ -6,8 +6,35 @@ import ProjectCard from "@/components/ProjectCard";
 import { PROJECTS } from "@/lib/data";
 import SmoothScroll from "@/components/SmoothScroll";
 import { useState, useEffect, useMemo } from "react";
+import Compass from "@/features/Compas";
 
 export default function Home() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: "NeWeb",
+    description:
+      "Разработка сайтов, лендингов и IT‑решений для бизнеса с SEO‑оптимизацией",
+    areaServed: "Россия",
+    serviceType: [
+      "Веб‑разработка",
+      "Создание лендингов",
+      "SEO‑оптимизация",
+      "Интеграции",
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Услуги NeWeb",
+      itemListElement: SERVICES.map((service) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: service.title,
+        },
+      })),
+    },
+  };
+
   const [displayedText, setDisplayedText] = useState("");
 
   // Массив фраз для поочерёдного отображения
@@ -52,80 +79,91 @@ export default function Home() {
   }, [charIndex, isDeleting, phraseIndex, phrases]);
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-900 to-gray-900 relative overflow-hidden">
-      {/* Фоновый эффект — приглушённый синий градиент */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,_rgba(59,130,246,0.1),_transparent_30%)]"></div>
+    <>
+      <main className="min-h-screen bg-gradient-to-b from-blue-900 to-gray-900 relative overflow-hidden">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+        {/* Фоновый эффект — приглушённый синий градиент */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,_rgba(59,130,246,0.1),_transparent_30%)]"></div>
 
-      <div className="relative z-10">
-        <section className="pt-32 pb-20 text-center px-6">
-          <h1 className="text-4xl font-bold mb-6 text-white">
-            Цифровые решения для масштабирования бизнеса
-          </h1>
+        <div className="relative z-10">
+          <section className="pt-32 pb-20 text-center px-6">
+            <h1 className="text-4xl font-bold mb-6 text-white">
+              Разработка сайтов и SEO‑оптимизация для бизнеса
+            </h1>
 
-          {/* Поисковая строка с бегущим текстом */}
-          <div className="mt-6 flex justify-center">
-            <div className="relative w-full max-w-xl">
-              <input
-                type="text"
-                value={displayedText}
-                readOnly
-                className="w-full px-6 py-4 pr-10 text-gray-200 bg-gray-800/50 border border-gray-700 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder=""
-              />
-              {/* Иконка лупы (можно заменить на SVG) */}
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
-                🔍
+            {/* Поисковая строка с бегущим текстом */}
+            <div className="mt-6 flex justify-center">
+              <div className="relative w-full max-w-xl">
+                <input
+                  type="text"
+                  value={displayedText}
+                  readOnly
+                  className="w-full px-6 py-4 pr-10 text-gray-200 bg-gray-800/50 border border-gray-700 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder=""
+                />
+                {/* Иконка лупы (можно заменить на SVG) */}
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
+                  🔍
+                </div>
               </div>
             </div>
-          </div>
+            {/* 🧭 КОМПАС — КРУТЯЩИЙСЯ ЛОГОТИП */}
+            <div className="w-full flex justify-center py-8 sm:py-12 px-6 sm:px-8">
+              <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg h-64 sm:h-72 lg:h-80 relative z-0">
+                <Compass />
+              </div>
+            </div>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto mt-6">
+              Создаём функциональные сайты и лендинги, которые привлекают
+              клиентов. SEO‑оптимизация, интеграции и IT‑решения под ключ.
+              Гарантированный рост видимости в поиске.
+            </p>
 
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto mt-6">
-            Создаем функциональные и производительные веб‑решения для бизнеса:
-            сайты, лендинги и веб‑приложения. Помогаю закрывать задачи — от
-            привлечения клиентов до автоматизации процессов.
-          </p>
+            <SmoothScroll
+              href="#services"
+              className="mt-10 inline-block px-8 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors btn-primary"
+            >
+              Наши услуги
+            </SmoothScroll>
+          </section>
 
-          <SmoothScroll
-            href="#services"
-            className="mt-10 inline-block px-8 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors btn-primary"
-          >
-            Наши услуги
-          </SmoothScroll>
-        </section>
+          <section id="services" className="py-30 px-6">
+            <h2 className="text-3xl font-bold text-center mb-12 text-white">
+              Чем занимается компания
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+              {SERVICES.map((service, index) => (
+                <ServiceCard
+                  key={index}
+                  title={service.title}
+                  description={service.description}
+                  icon={service.icon}
+                />
+              ))}
+            </div>
+          </section>
 
-        <section id="services" className="py-30 px-6">
-          <h2 className="text-3xl font-bold text-center mb-12 text-white">
-            Чем занимается компания
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-            {SERVICES.map((service, index) => (
-              <ServiceCard
-                key={index}
-                title={service.title}
-                description={service.description}
-                icon={service.icon}
-              />
-            ))}
-          </div>
-        </section>
-
-        <section id="portfolio" className="py-20 px-6 bg-gray-800/30">
-          <h2 className="text-4xl font-bold text-center mb-12 text-white">
-            Наши продукты
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {PROJECTS.map((project, index) => (
-              <ProjectCard
-                key={index}
-                title={project.title}
-                image={project.image}
-                tech={project.tech}
-                link={project.link}
-              />
-            ))}
-          </div>
-        </section>
-      </div>
-    </main>
+          <section id="portfolio" className="py-20 px-6 bg-gray-800/30">
+            <h2 className="text-4xl font-bold text-center mb-12 text-white">
+              Наши продукты
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+              {PROJECTS.map((project, index) => (
+                <ProjectCard
+                  key={index}
+                  title={project.title}
+                  image={project.image}
+                  tech={project.tech}
+                  link={project.link}
+                />
+              ))}
+            </div>
+          </section>
+        </div>
+      </main>
+    </>
   );
 }

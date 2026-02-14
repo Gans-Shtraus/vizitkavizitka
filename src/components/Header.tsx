@@ -49,7 +49,11 @@ export default function Header() {
   return (
     <header className="fixed w-full bg-black/40 backdrop-blur-md z-50 border-b border-white/10">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold text-white">
+        <Link
+          href="/"
+          className="text-2xl font-bold text-white"
+          title="Главная страница NeWeb"
+        >
           NeWeb
         </Link>
 

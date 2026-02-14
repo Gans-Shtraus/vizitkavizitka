@@ -1,5 +1,17 @@
 import Image from "next/image";
 
+<div itemScope itemType="https://schema.org/LocalBusiness">
+  <meta itemProp="name" content="NeWeb Company" />
+  <div
+    itemProp="contactPoint"
+    itemScope
+    itemType="https://schema.org/ContactPoint"
+  >
+    <meta itemProp="contactType" content="customer service" />
+    <meta itemProp="email" content="pugachev.2013@yandex.ru" />
+  </div>
+</div>;
+
 export default function Footer() {
   return (
     <footer
@@ -62,6 +74,17 @@ export default function Footer() {
               height={50}
             />
           </a>
+        </div>
+        <div itemScope itemType="https://schema.org/LocalBusiness">
+          <meta itemProp="name" content="NeWeb Company" />
+          <div
+            itemProp="contactPoint"
+            itemScope
+            itemType="https://schema.org/ContactPoint"
+          >
+            <meta itemProp="contactType" content="customer service" />
+            <meta itemProp="email" content="pugachev.2013@yandex.ru" />
+          </div>
         </div>
       </div>
     </footer>

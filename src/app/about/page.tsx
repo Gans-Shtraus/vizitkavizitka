@@ -4,7 +4,6 @@ import HeaderSection from "./HeaderSection";
 import GrowthChart from "./GrowthChart";
 import BenefitsList from "./BenefitsList";
 import CTAButton from "./CTAButton";
-import Compass from "../../features/Compas";
 
 export default function About() {
   const [chartData, setChartData] = useState([84, 75, 125, 78, 92]);
@@ -18,7 +17,7 @@ export default function About() {
         prev.map((val) => {
           const change = Math.random() * 16 - 8;
           return Math.max(40, Math.min(100, val + change));
-        })
+        }),
       );
     }, 1800);
 
@@ -30,13 +29,6 @@ export default function About() {
       <HeaderSection />
 
       <div className="neon-border p-6 sm:p-8 rounded-lg bg-[var(--background)]/20 backdrop-blur-sm space-y-8">
-        {/* 🧭 КОМПАС - контролируемый размер */}
-        <div className="w-full flex justify-center py-8 sm:py-12 px-6 sm:px-8">
-          <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg h-64 sm:h-72 lg:h-80 relative z-0">
-            <Compass />
-          </div>
-        </div>
-
         {/* 📊 Growth Chart */}
         <div className="w-full flex justify-center py-8 sm:py-12">
           {isMounted ? (
@@ -56,16 +48,15 @@ export default function About() {
         {/* 📝 Текст */}
         <div className="max-w-2xl mx-auto text-center py-12 px-4">
           <p className="leading-relaxed text-base sm:text-lg text-[var(--foreground)]/90">
-            Наш подход —{" "}
-            <span className="text-[var(--accent)] font-semibold bg-[var(--accent)]/10 px-3 py-1 rounded-xl inline-block">
-              фокус на результат и ROI
-            </span>. 
-            Мы не просто пишем код: мы помогаем бизнесу расти и масштабироваться. 
-            Хотите увидеть, как это работает? Ознакомьтесь с{" "}
-            <span className="text-[var(--accent-light)] font-semibold hover:text-[var(--accent)] transition-all duration-300 cursor-pointer underline decoration-[var(--accent)]/50">
-              кейсами в разделе «Портфолио»
-            </span> 
-            — там реальные проекты с измеримыми итогами.
+            Компания <strong>NeWeb</strong> специализируется на создании
+            веб‑решений, которые приносят реальный результат. Наш подход —{" "}
+            <strong>фокус на ROI</strong>: мы не просто пишем код, а помогаем
+            бизнесу расти и масштабироваться через:
+            <ul className="mt-4 list-disc list-inside text-[var(--foreground)]/90">
+              <li>разработку сайтов и лендингов с конверсией</li>
+              <li>SEO‑оптимизацию для роста трафика</li>
+              <li>интеграцию с CRM и бизнес‑системами</li>
+            </ul>
           </p>
         </div>
       </div>
