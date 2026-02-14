@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-
 interface GrowthChartProps {
   value: number;
 }

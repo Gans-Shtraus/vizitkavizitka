@@ -15,7 +15,7 @@ extend({
 
 function CompassCube() {
   const texture = useTexture("/images/NeWeb.png");
-  const meshRef = useRef<THREE.Mesh>();
+  const meshRef = useRef<THREE.Mesh>(null);
   const isDragging = useRef(false);
   const autoRotationSpeed = useRef(0.5);
 
