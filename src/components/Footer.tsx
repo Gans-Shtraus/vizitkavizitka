@@ -28,7 +28,7 @@ export default function Footer() {
         <div className="flex space-x-8">
           {/* Telegram */}
           <a
-            href="https://t.me/Darkness_Project?text=Здравствуйте!%20Хочу%20задать%20вопрос"
+            href="https://t.me/NeWebSolution?text=Здравствуйте!%20Хочу%20задать%20вопрос"
             className="flex items-center justify-center hover:opacity-80 transition-opacity duration-300 transform hover:scale-110"
             target="_blank"
             rel="noopener"
